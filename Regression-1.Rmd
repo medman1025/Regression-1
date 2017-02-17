@@ -2,8 +2,27 @@
 title: "Regression-1"
 author: "Vicki Hertzberg"
 date: "February 8, 2017"
-output: html_document
+output:
+  word_document: default
+  html_document: default
 ---
+```{r}
+"summary(White_wines)"
+```
+
+```{r}
+variable.names(White_wines)
+histogram(~fixed.acidity, data=White_wines)
+histogram(~volatile.acidity, data=White_wines)
+histogram(~citric.acid, data=White_wines)
+```
+
+
+
+
+
+
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -128,6 +147,7 @@ plot(resid~parent, pch = 16, cex = .1, axes = FALSE, labels = FALSE)
 ```{r}
 #plot residual v predicted
 plot(resid~pred.child, data = Galton.test)
+abline(0,0)
 ```
 
 One assumption in the statistical analysis of a linear regression are the hypothesis tests. We usually want to test a null hypothesis that the slope is 0, ie, there is no relationship between y and x. We express this mathematically as 
@@ -267,7 +287,7 @@ We can compare the results of these two analyses a little more cleanly using the
 
 ```{r results="asis"}
 # compare the results of the two regression models
-stargazer(prestige.mod1,prestige.mod2,title="Comparison of 2 Regression outputs",type="html",align=TRUE)
+stargazer(prestige.mod1,prestige.mod2,title="Comparison of 2 Regression outputs",type="text",align=TRUE)
 ```
 
 We conclude that we lose little by eliminating a predictor variable. This is also consistent with a principle of parsimony, also known as the KISS principle, or "Keep It Simple, Silly".

@@ -1,24 +1,60 @@
 ---
-title: "HW3"
-author: "Vicki Hertzberg"
-date: "February 8, 2017"
-output: html_document
+title: "Homework #3"
+author: "Alan Jones"
+date: "February 15, 2017"
+output:
+  word_document: default
+  html_document: default
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+```
+```{r}
+White_wines<-read.csv("White_wines.csv")
+```
 
+```{r}
+summary(White_wines)
+```
 
+```{r}
+#examine each variable in a univariate graph
+variable.names(White_wines)
+hist(White_wines$chlorides)
+hist(White_wines$fixed.acidity)
+hist(White_wines$volatile.acidity)
+hist(White_wines$citric.acid)
+hist(White_wines$residual.sugar)
+hist(White_wines$free.sulfur.dioxide)
+hist(White_wines$total.sulfur.dioxide)
+hist(White_wines$density)
+hist(White_wines$pH)
+hist(White_wines$sulphates)
+hist(White_wines$alcohol)
+hist(White_wines$quality)
+```
 
-You are now the data slave to the principal investigator Dr. Vinca Monster. Dr. M is in the Grape Program at State U, and you are just a poor graduate student trying to get your degree. Dr. M is interested in wine preferences and the influences of physico-chemical properties on preferences. Her laboratory has gathered an extensive dataset on Portugese white varietals.
+```{r}
+#To get multivariate graphs
+library(car)
+scatterplotMatrix(~fixed.acidity + volatile.acidity + citric.acid, data=White_wines)
+scatterplotMatrix(~residual.sugar + chlorides + free.sulfur.dioxide + total.sulfur.dioxide, data=White_wines)
+scatterplotMatrix(~density + pH + sulphates + alcohol, data=White_wines)
+```
 
+```{r}
+#To examine regression
+RegModel.1 <- 
+  lm(quality~alcohol+chlorides+citric.acid+density+fixed.acidity+free.sulfur.dioxide+pH+residual.sugar+sulphates+total.sulfur.dioxide+volatile.acidity,
+   data=White_wines)
+summary(RegModel.1)
+```
+```{r}
+#To further examine regression
+RegModel.1 <- 
+  lm(quality~alcohol+density+fixed.acidity+free.sulfur.dioxide+pH+residual.sugar+sulphates+volatile.acidity,
+   data=White_wines)
+summary(RegModel.1)
+```
 
-You will find the white_wines.csv file and its description in my github repo (https://github.com/vhertzb/Regression-1)[https://github.com/vhertzb/Regression-1].
-
-Please use the techniques you have learned in the last two classes, specifically exploratory data analysis and linear regression, to determine association of the wine properties on preference. 
-
-Prepare a report for presentation at the next Monster lab meeting about this dataset.
-
-Rubric:
-
-Exploration (summary statistics (the m's), univariate graphs, multivariate graphs)
-Regression (Models explored, diagnostics completed, final model choice, justification)
-
-Please include a concluding paragraph (or two) about the implications of your findings.
+A regression approach can be used because the order of preferences is preserved. The matrix is used for classification analysis. The results indicate that an increase in alcohol leads to higher quality scores of wine. Sulphates are an important factor in quality as well. White wine is also positively marked by higher citric acid and residual sugar levels. A decrease in quality is seen with higher volatile acidity scores. White wine quality scores are, therefore, most impacted by sulphates, citric acid, residual sugar levels, and alcohol being higher. 
